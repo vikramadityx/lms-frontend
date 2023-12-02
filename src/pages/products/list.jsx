@@ -36,9 +36,8 @@ export function List() {
   const handleDelete = async (id) => {
     const tempArr = allBooks.filter(item => item._id !== id);
     setAllBooks(tempArr)
-
     const res = await bookService.deleteBookById(id);
-
+    alert("book deleted")
     console.log(res);
 
   }
