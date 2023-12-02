@@ -11,7 +11,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Home, Profile, Tables, Notifications } from "@/pages/dashboard";
 import { SignIn, SignUp } from "@/pages/auth";
-import { List, AddProduct, CreateCategory } from "@/pages/products";
+import { List, AddProduct, CreateCategory, UpdateProduct } from "@/pages/products";
 import { Products } from "@/layouts";
 // import Products from "./pages/dashboard/products";
 
@@ -25,28 +25,28 @@ export const routes = [
     pages: [
       {
         icon: <HomeIcon {...icon} />,
-        name: "dashboard",
+        name: "dashboard (Static Data)",
         path: "/home",
         element: <Home />,
       },
-      {
-        icon: <UserCircleIcon {...icon} />,
-        name: "profile",
-        path: "/profile",
-        element: <Profile />,
-      },
-      {
-        icon: <TableCellsIcon {...icon} />,
-        name: "tables",
-        path: "/tables",
-        element: <Tables />,
-      },
-      {
-        icon: <InformationCircleIcon {...icon} />,
-        name: "notifications",
-        path: "/notifications",
-        element: <Notifications />,
-      },
+      // {
+      //   icon: <UserCircleIcon {...icon} />,
+      //   name: "profile",
+      //   path: "/profile",
+      //   element: <Profile />,
+      // },
+      // {
+      //   icon: <TableCellsIcon {...icon} />,
+      //   name: "tables",
+      //   path: "/tables",
+      //   element: <Tables />,
+      // },
+      // {
+      //   icon: <InformationCircleIcon {...icon} />,
+      //   name: "notifications",
+      //   path: "/notifications",
+      //   element: <Notifications />,
+      // },
     ],
   },
   {
@@ -82,12 +82,6 @@ export const routes = [
         name: "add product",
         path: "/add-product",
         element: <AddProduct />,
-      },
-      {
-        icon: <TagIcon {...icon} />,
-        name: "create category",
-        path: "/create-category",
-        element: <CreateCategory />,
       }
     ],
   }

@@ -1,16 +1,15 @@
 import {
-    Card,
     Input,
     Button,
     Typography,
-    Select,
-    Option
 } from "@material-tailwind/react";
 // import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import bookService from "@/services/bookService";
 
-export function AddProduct() {
+import { useParams, useNavigate } from "react-router-dom";
+
+export function UpdateProduct() {
 
     const [title, setTitle] = useState('');
     const [author, setAuthor] = useState('');
@@ -20,17 +19,26 @@ export function AddProduct() {
     const [shelfNumber, setShelfNumber] = useState('');
     const [sku, setSku] = useState('');
 
-    // useEffect(() => {
-    //     const getAllCategories = async () => {
-    //         const res = await categoryService.getAllCategories()
-    //         setAllCategories(res.data);
-    //     }
-    //     getAllCategories();
-    // }, [])
+    const params = useParams();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const getBook = async () => {
+            const res = await bookService.getBookById(params.id);
+            console.log(res);
+            setTitle(res.title);
+            setAuthor(res.author);
+            setShelfNumber(res.shelfNumber);
+            setSku(res.sku);
+            setBookNumber(res.bookNumber);
+        }
+
+        getBook();
+    }, [])
 
     const handleSubmit = async () => {
         try {
-            const res = await bookService.addBook(
+            const res = await bookService.updateBookById(params.id,
                 {
                     title,
                     author,
@@ -42,12 +50,13 @@ export function AddProduct() {
                 }
             )
             if (res) {
-                alert("Product Added");
+                alert("Book Updated");
                 setTitle("");
                 setAuthor("");
                 setSku("");
                 setBookNumber("");
                 setShelfNumber("")
+                navigate("/products/list");
             }
             console.log(res);
         }
@@ -136,22 +145,9 @@ export function AddProduct() {
                                 className: "before:content-none after:content-none",
                             }}
                         />
-                        {/* <Typography variant="small" color="blue-gray" className="-mb-3 font-medium">
-                            Display Picture
-                        </Typography>
-                        <Input
-                            value={setFile}
-                            onChange={(e) => setFile(e.target.files[0])}
-                            type="file"
-                            size="lg"
-                            className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-                            labelProps={{
-                                className: "before:content-none after:content-none",
-                            }}
-                        /> */}
                     </div>
                     <Button onClick={handleSubmit} className="mt-6" fullWidth>
-                        Add Product
+                        Update Book
                     </Button>
                 </form>
             </div>
@@ -159,4 +155,4 @@ export function AddProduct() {
     );
 }
 
-export default AddProduct;
+export default UpdateProduct;

@@ -32,7 +32,7 @@ const api = {
             return data;
         } catch (error) {
             console.error('Error during POST request:', error.message);
-            throw error;
+            return error;
         }
     },
     put: async (url, body) => {
@@ -53,6 +53,26 @@ const api = {
             return data;
         } catch (error) {
             console.error('Error during PUT request:', error.message);
+            throw error;
+        }
+    },
+    delete: async (url) => {
+        try {
+            const response = await fetch(`${BASE_URL}${url}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            return data;
+        } catch (error) {
+            console.error('Error during DELETE request:', error.message);
             throw error;
         }
     },

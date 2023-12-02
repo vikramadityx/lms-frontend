@@ -5,10 +5,35 @@ import {
   Button,
   Typography,
 } from "@material-tailwind/react";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import userService from "@/services/userService";
+import { useState } from "react";
 
 export function SignIn() {
+
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState()
+  const navigate = useNavigate();
+
+  const handleLogin = async () => {
+    try {
+      const res = await userService.loginUser({
+        email, password
+      })
+      if (res.success) {
+        console.log(res);
+        localStorage.setItem("user", email)
+        navigate("/dashboard/home")
+      }
+      else{
+        alert("Wrong Credintials or server error")
+      }
+    } catch (error) {
+      // alert("User Already Exists")
+      console.log(error)
+    }
+  }
+
   return (
     <section className="m-8 flex gap-4">
       <div className="w-full lg:w-3/5 mt-24">
@@ -22,6 +47,7 @@ export function SignIn() {
               Your email
             </Typography>
             <Input
+              onChange={(e) => setEmail(e.target.value)}
               size="lg"
               placeholder="name@mail.com"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
@@ -33,6 +59,7 @@ export function SignIn() {
               Password
             </Typography>
             <Input
+              onChange={(e) => setPassword(e.target.value)}
               type="password"
               size="lg"
               placeholder="********"
@@ -60,7 +87,7 @@ export function SignIn() {
             }
             containerProps={{ className: "-ml-2.5" }}
           />
-          <Button className="mt-6" fullWidth>
+          <Button onClick={handleLogin} className="mt-6" fullWidth>
             Sign In
           </Button>
 

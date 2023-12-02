@@ -40,7 +40,6 @@ export function CreateCategory() {
         console.log(res);
     }
 
-
     return (
         <section className="m-8 flex justify-center gap-4">
             <div className="w-full lg:w-3/5">
